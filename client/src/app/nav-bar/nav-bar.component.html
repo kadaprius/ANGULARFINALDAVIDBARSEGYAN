@@ -81,5 +81,9 @@
       </form>
     </div>
   </div>
+  <select class="form-select" (change)="ChangeLanguage($event)" name="" id="" >
+    <option [selected]="lang==='en'" value="en">English</option>
+    <option [selected]="lang==='ka'" value="ka">Georgian</option>
+  </select>
 </nav>
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {BookService} from "../services/book.service";
 import {AuthorService} from "../services/author.service";
+import {TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +11,7 @@ import {AuthorService} from "../services/author.service";
 })
 export class NavBarComponent implements OnInit{
 
-  constructor(private auth: AuthService, private bookService: BookService, private authorService: AuthorService) {
+  constructor(private translateService:TranslateService,private auth: AuthService, private bookService: BookService, private authorService: AuthorService) {
   }
 
   originalBooks: any[];
@@ -20,10 +21,12 @@ export class NavBarComponent implements OnInit{
   searchTerm: string = '';
   showDropdown: boolean = false;
 
-
+ lang: string = '';
   ngOnInit(): void {
     this.populateBooks();
     this.populateAuthors();
+    this.lang = localStorage.getItem('lang') || 'en';
+
   }
 
 
@@ -77,5 +80,10 @@ export class NavBarComponent implements OnInit{
   logout(){
     this.auth.logout();
 
+  }
+  ChangeLanguage(lang : any){
+    const selectedLanguage = lang.target.value;
+    localStorage.setItem('lang',selectedLanguage);
+    this.translateService.use(selectedLanguage);
   }
 }
