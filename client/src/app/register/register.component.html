@@ -1,0 +1,27 @@
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <select class="form-select" (change)="ChangeLanguage($event)" name="" id="" >
+    <option [selected]="lang==='en'" value="en">English</option>
+    <option [selected]="lang==='ka'" value="ka">Georgian</option>
+  </select>
+    <div class="form-group">
+      <label for="userName">Username</label>
+      <input class="form-control" type="text" id="userName" formControlName="userName" required [class.is-invalid]="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched">
+      <small [class.d-none]="registerForm.get('userName')?.valid || registerForm.get('userName')?.untouched" class="text-danger">Please enter a valid Firstname</small>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" id="password" formControlName="password" required [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <small *ngIf="registrationForm.get('password')?.hasError('minlength') && registrationForm.get('password')?.touched" class="text-danger">Password should contain at least 6 characters</small>
+        <small *ngIf="registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched" class="text-danger">please enter valid password</small>
+       </div>
+       
+       <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input [class.is-invalid]="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched" formControlName="confirmPassword" type="password" class="form-control">
+        <small *ngIf="registrationForm.errors?.['passwordMismatch'] && registrationForm.get('confirmPassword')?.touched" class="text-danger">Passwords do not match</small>
+       </div>
+       <button class="btn btn-primary" type="submit" >Submit</button>
+       <button type="button" class="btn btn-secondary" (click)="goToLogin()">Login</button>
+</form>
+

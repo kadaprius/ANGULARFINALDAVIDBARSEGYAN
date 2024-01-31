@@ -1,0 +1,19 @@
+<h1>login page</h1>
+<!-- missing code -->
+    <form [formGroup]="loginForm">
+      <select class="form-select" (change)="ChangeLanguage($event)" name="" id="" >
+        <option [selected]="lang==='en'" value="en">English</option>
+        <option [selected]="lang==='ka'" value="ka">Georgian</option>
+      </select>
+     <div class="form-group">
+       <label for="userName">Email</label>
+       <input class="form-control" type="text" id="userName" formControlName="userName" placeholder="userName">
+     </div>
+     <div class="form-group">
+       <label for="password">Password</label>
+       <input class="form-control" type="password" id="password" formControlName="password" placeholder="Password">
+     </div>
+     <button class="btn btn-primary" (click)="onSubmit()">{{"submitlogin"|translate}}</button>
+    </form>
+              <button type="button" class="btn btn-secondary" (click)="goToRegister()">{{"register"|translate}}</button>
+
