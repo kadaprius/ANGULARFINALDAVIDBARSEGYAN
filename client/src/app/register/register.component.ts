@@ -32,21 +32,22 @@ export class RegisterComponent implements OnInit  {
       confirmPassword: ['', [Validators.required]]
     } ,{validators:  passwordMatchValidator}); }
 
- onSubmit() : void{
-  if (this.registerForm.valid) {
-    const { userName, password, ...userData } = this.registerForm.value;
-    this.authService.registerUser({ ...userData }).subscribe({
-      next: (response) => {
-        console.log("Registration successful: ",response);
-        this.newIsSaved = true;
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        console.log('Registration failed: ', error);
+    onSubmit(): void {
+      if (this.registerForm.valid) {
+        const { userName, password } = this.registerForm.value;
+    
+        this.authService.registerUser({ username: userName, password }).subscribe({
+          next: (response) => {
+            console.log("Registration successful:", response);
+            this.newIsSaved = true;
+            this.router.navigate(['/login']);
+          },
+          error: (error) => {
+            console.error('Registration failed:', error.error); // Log the error message
+          }
+        });
       }
-    });
-  }
-}
+    }
 lang:string='';
 
 ngOnInit() : void {
